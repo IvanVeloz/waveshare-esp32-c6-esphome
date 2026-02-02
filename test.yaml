@@ -1,15 +1,15 @@
 esphome:
-  name: esp32c6_lcd
+  name: esp32c6-lcd
   friendly_name: ESP32C6 LCD Demo
 
 esp32:
   board: esp32-c6-devkitc-1
   variant: esp32c6
-  flash_size: 8MB
+  flash_size: 4MB
   framework:
     type: esp-idf
     sdkconfig_options:
-      CONFIG_ESPTOOLPY_FLASHSIZE_8MB: y
+      CONFIG_ESPTOOLPY_FLASHSIZE_4MB: y
 
 ota:
   platform: esphome
@@ -18,8 +18,8 @@ ota:
 logger:
 
 api:
-  port: 6053
-  reboot_timeout: 15min
+  encryption:
+    key: !secret esp32c6-lcd-api-key
 
 wifi:
   ssid: !secret wifi_ssid
@@ -71,7 +71,7 @@ display:
     reset_pin: GPIO21      # LCD_RST
 
     spi_mode: MODE3        # this board wants mode 3
-    data_rate: 5MHz        # conservative; you can try 10MHz later
+    data_rate: 10MHz        # conservative; you can try 10MHz later
     color_order: bgr       # typical for ST7789; flip to rgb if colors are wrong
     color_depth: 16        # RGB565
     invert_colors: true
